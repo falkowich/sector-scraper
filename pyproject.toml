@@ -25,6 +25,7 @@ flake8 = "^7.1.0"
 ruff = "^0.5.0"
 poetry-plugin-export = "^1.8.0"
 ptpython = "^3.0.27"
+types-beautifulsoup4 = "^4.12.0.20240511"
 
 [build-system]
 requires = ["poetry-core"]
