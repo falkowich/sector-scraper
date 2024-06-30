@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "sector-scraper"
+version = "0.1.0"
+description = ""
+authors = ["Falk <andreas@mockel.se>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+playwright = "^1.44.0"
+mypy = "^1.10.1"
+beautifulsoup4 = "^4.12.3"
+python-dotenv = "^1.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.4.2"
+bandit = "^1.7.9"
+coverage = "^7.5.4"
+pytest = "^8.2.2"
+pytest-cov = "^5.0.0"
+isort = "^5.13.2"
+flake8 = "^7.1.0"
+ruff = "^0.5.0"
+poetry-plugin-export = "^1.8.0"
+ptpython = "^3.0.27"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
