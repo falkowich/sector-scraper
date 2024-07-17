@@ -1,7 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-from parse import parse_temperature
+from sector_scraper.parse import parse_temperature
 from playwright.sync_api import Playwright, expect, sync_playwright
 
 load_dotenv()
@@ -50,8 +50,9 @@ def main():
         with sync_playwright() as playwright:
             run(playwright, filename)
 
-    parse_temperature(filename)
-
+    temperature_lst = parse_temperature(filename)
+    
+    print(temperature_lst)
 
 if __name__ == "__main__":
     main()

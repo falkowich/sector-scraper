@@ -27,6 +27,9 @@ poetry-plugin-export = "^1.8.0"
 ptpython = "^3.0.27"
 types-beautifulsoup4 = "^4.12.0.20240511"
 
+[tool.poetry.scripts]
+sector-scraper = "sector_scraper.main:main"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
