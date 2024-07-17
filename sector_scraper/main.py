@@ -1,9 +1,16 @@
+import argparse
 import os
 
 from dotenv import load_dotenv
+from playwright.sync_api import Playwright, expect, sync_playwright
+
+from sector_scraper.configurator import (
+    create_automation_config,
+    create_sensor_config,
+    save_yaml,
+)
 from sector_scraper.parser import parse_temperature
 from sector_scraper.sender import update_sensors
-from playwright.sync_api import Playwright, expect, sync_playwright
 
 load_dotenv()
 
@@ -48,6 +55,17 @@ def run(playwright: Playwright, filename: str) -> None:
 
 
 def main():
+    parser = argparse.ArgumentParser(
+        description="Get temperature value from your sector-alarm sensors"
+    )
+    parser.add_argument(
+        "--create-config",
+        action="store_true",
+        help="Create config output for homeassistant configure.yaml and automation.yaml",
+    )
+
+    args = parser.parse_args()
+
     fetch_latest = True
     if fetch_latest:
         with sync_playwright() as playwright:
@@ -55,9 +73,17 @@ def main():
 
     temperature_lst = parse_temperature(filename)
 
-    update_sensors(temperature_lst, hoas_url, hoas_token)
+    if args.create_config:
+        sensor_config = create_sensor_config(temperature_lst)
+        automation_config = create_automation_config(temperature_lst)
 
+        print("# Sensor Configuration:")
+        save_yaml(sensor_config, "output/sensor_output.yaml")
 
+        print("\n# Automation Configuration:")
+        save_yaml(automation_config, "output/automation_output.yaml")
+    else:
+        update_sensors(temperature_lst, hoas_url, hoas_token)
 
 
 if __name__ == "__main__":
