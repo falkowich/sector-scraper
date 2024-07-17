@@ -26,6 +26,7 @@ def create_sensor_config(temperature_lst: List[Dict[str, str]]) -> Dict[str, Any
             "value_template": DoubleQuotedScalarString(
                 f"{{{{ states('sensor.{sensor_name}') | float }}}}"
             ),
+            "unique_id": DoubleQuotedScalarString(f"{sensor_name}"),
         }
 
     return data

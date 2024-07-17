@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sector-scraper"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Falk <andreas@mockel.se>"]
 license = "MIT"
@@ -33,6 +33,9 @@ types-beautifulsoup4 = "^4.12.0.20240511"
 
 [tool.poetry.scripts]
 sector-scraper = "sector_scraper.main:main"
+
+[tool.isort]
+profile = "black"
 
 [build-system]
 requires = ["poetry-core"]
