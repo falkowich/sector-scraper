@@ -1,7 +1,8 @@
 import os
 
 from dotenv import load_dotenv
-from sector_scraper.parse import parse_temperature
+from sector_scraper.parser import parse_temperature
+from sector_scraper.sender import update_sensors
 from playwright.sync_api import Playwright, expect, sync_playwright
 
 load_dotenv()
@@ -11,6 +12,8 @@ user = str(os.getenv("SECTOR-MAIL"))
 passwd = str(os.getenv("SECTOR-PASSWORD"))
 env = os.getenv("ENV")
 filename = str(os.getenv("FILENAME"))
+hoas_url = str(os.getenv("HOMEASSISTANT_URL"))
+hoas_token = str(os.getenv("HOMEASSISTANT_TOKEN"))
 
 
 def write_to_file(filename: str, page_content: str):
@@ -51,8 +54,11 @@ def main():
             run(playwright, filename)
 
     temperature_lst = parse_temperature(filename)
-    
-    print(temperature_lst)
+
+    update_sensors(temperature_lst, hoas_url, hoas_token)
+
+
+
 
 if __name__ == "__main__":
     main()
